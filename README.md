@@ -26,6 +26,25 @@ Before looking at optimized solutions, your first task is to design a baseline o
 
 *Hint:* see the pseudocode for Kadane's Algorithm in Part 2 for guidance on how to structure your approach.
 
+```
+Algorithm: Baseline Soultion
+Input: A list A of n integers
+Output: The maximum contiguous subarray sum
+
+
+1. max_so_far = negative infinity
+2. for i in range len(A):
+      current_max = 0
+   
+      for j in range (i,len(A)):
+         current_max = current_max + A(j)
+
+         if current max > max_so_far:
+            max_so_far = current_max
+   return max_so_far
+```
+
+
 ## Part 2: The Optimized Algorithm (Kadane's Algorithm)
 
 Computer scientist Jay Kadane developed an elegant, dynamic programming approach to this problem that runs in $O(N)$ time.
@@ -55,7 +74,43 @@ You will now implement both algorithms in Python and set up an experimental fram
 
 1. **Implementation:** Write two Python functions, `baseline_max_sublist(arr)` and `kadane_max_sublist(arr)`.
 
+```python
+def baseline_max_sublist(A):
+    max_so_far = float("-inf")
+
+    for i in range(len(A)):
+        current_max = 0
+
+        for j in range(i, len(A)):
+            current_max += arr[j]
+
+            if current_max > max_so_far:
+                max_so_far = current_max
+
+    return max_so_far
+```
+
+```python
+
+def kadane_max_subarray(A):
+    max_so_far = float('-inf')
+    current_max = 0
+
+    for i in A:
+        current_max += i
+
+        if current_max > max_so_far:
+            max_so_far = current_max
+
+        if current_max < 0:
+            current_max = 0
+
+    return max_so_far
+
+```
+
 2. **Data Generation:** Write a helper function using `numpy.random.randint` to generate random integer lists of a given length. Ensure the lists contain both positive and negative numbers (e.g., range from -100 to 100).
+
 
 3. **Benchmarking Setup:**
 
